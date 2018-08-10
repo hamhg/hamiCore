@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Implementation-Title: Hami Framework
+Main-Class: com.hami.core
+
