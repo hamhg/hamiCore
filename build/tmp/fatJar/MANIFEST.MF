@@ -1,4 +1,8 @@
 Manifest-Version: 1.0
 Implementation-Title: Hami Framework
+<<<<<<< HEAD
+=======
+Implementation-Version: 1.0
+>>>>>>> refs/remotes/origin/master
 Main-Class: com.hami.core
 
