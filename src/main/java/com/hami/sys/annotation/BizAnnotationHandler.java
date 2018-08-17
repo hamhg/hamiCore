@@ -50,7 +50,7 @@ public class BizAnnotationHandler implements ApplicationContextAware, Initializi
     }
 
     public void loadAnnotaion() {
-        log.debug("==================== BizService Now Scan ====================");
+        log.debug(":::: BizService Load Start ::::");
         Map ServiceClassMaps = applicationContext.getBeansWithAnnotation(Service.class);
 
         for (Iterator iterator = ServiceClassMaps.keySet().iterator(); iterator.hasNext();) {
