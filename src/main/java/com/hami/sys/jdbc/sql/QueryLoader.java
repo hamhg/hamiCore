@@ -24,14 +24,13 @@ import java.util.List;
  *
  * @author HHG
  */
-@SuppressWarnings({"unchecked"})
 public class QueryLoader {
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 파일정보를 담아둘 임시저장소
      */
-    protected HashMap memStatement = new HashMap();
+    protected HashMap<String, Object> memStatement = new HashMap<String, Object>();
     /**
      * QueryLoader
      */
@@ -49,8 +48,8 @@ public class QueryLoader {
      */
     public String getElement(Object obj, String sqlName, Object replace)
     {
-        String className = (obj instanceof String) ? obj.toString() : (obj instanceof Class) ? ((Class) obj).getName() : obj.getClass().getName();
-        String path = (obj instanceof String) ? "" : (obj instanceof Class) ? ((Class) obj).getResource("").getPath() : obj.getClass().getResource("").getPath();
+        String className = (obj instanceof String) ? obj.toString() : (obj instanceof Class) ? ((Class<?>) obj).getName() : obj.getClass().getName();
+        String path = (obj instanceof String) ? "" : (obj instanceof Class) ? ((Class<?>) obj).getResource("").getPath() : obj.getClass().getResource("").getPath();
         path = path.substring(0,path.indexOf("classes")+8);
         return getElementWithClassName(path, className, sqlName, replace);
     }
@@ -80,13 +79,13 @@ public class QueryLoader {
                 doc = saveDocument(filePath);
             }
             Element element = doc.getRootElement();
-            List list = element.getChildren();
-            Iterator iterator = list.iterator();
+            List<?> list = element.getChildren();
+            Iterator<?> iterator = list.iterator();
             while (iterator.hasNext())
             {
                 Element child = (Element) iterator.next();
-                List ChildList = child.getAttributes();
-                Iterator iter = ChildList.iterator();
+                List<?> ChildList = child.getAttributes();
+                Iterator<?> iter = ChildList.iterator();
                 while (iter.hasNext())
                 {
                     Attribute attribute = (Attribute) iter.next();
@@ -120,8 +119,8 @@ public class QueryLoader {
         else if (replace instanceof HashMap)
         {
             String query = text;
-            HashMap map = (HashMap) replace;
-            Iterator iter = map.keySet().iterator();
+            HashMap<?, ?> map = (HashMap<?, ?>) replace;
+            Iterator<?> iter = (Iterator<?>) map.keySet().iterator();
             String key;
             while (iter.hasNext())
             {

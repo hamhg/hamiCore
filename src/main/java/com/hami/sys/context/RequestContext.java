@@ -13,10 +13,10 @@ import java.util.Map;
  * @author HHG
  */
 public class RequestContext {
-    private Map attributes;
+    private Map<String, Object> attributes;
 
     RequestContext() {
-        attributes = new HashMap();
+        attributes = new HashMap<String, Object>();
     }
 
     public void setAttribute(String key, Object value) {
@@ -31,7 +31,7 @@ public class RequestContext {
         return attributes.get(key);
     }
 
-    public Iterable getKeys() {
+    public Iterable<String> getKeys() {
         return attributes.keySet();
     }
 }

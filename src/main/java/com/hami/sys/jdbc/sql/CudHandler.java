@@ -44,19 +44,19 @@ public class CudHandler {
     /**
      * 속성 필드 리스트
      */
-    protected ArrayList m_fieldList;
+    protected ArrayList<String[]> m_fieldList;
     /**
      * 조건절 필드 리스트
      */
-    protected ArrayList m_keyList;
+    protected ArrayList<String[]> m_keyList;
     /**
      * 동일 statement 처리 위한 쿼리 문자열 보관
      */
-    protected HashMap m_queryMap;
+    protected HashMap<String, SqlStatement> m_queryMap;
     /**
      * 기타 파라미터 필드
      */
-    protected HashMap m_etcMap;
+    protected HashMap<String, String> m_etcMap;
     /**
      * 쿼리 로그 여부
      */
@@ -72,10 +72,10 @@ public class CudHandler {
      */
     public CudHandler(DataSource dataSource) throws SQLException {
         this.m_conn = dataSource.getConnection();
-        m_fieldList = new ArrayList();
-        m_keyList = new ArrayList();
-        m_etcMap = new HashMap();
-        m_queryMap = new HashMap();
+        m_fieldList = new ArrayList<String[]>();
+        m_keyList = new ArrayList<String[]>();
+        m_etcMap = new HashMap<String, String>();
+        m_queryMap = new HashMap<String, SqlStatement>();
         m_debug = true;
         m_autoFieldAdd = true;
     }
@@ -246,10 +246,10 @@ public class CudHandler {
      * @param vstmt
      * @param map
      */
-    private void setParameters(SqlStatement vstmt, HashMap map)
+    private void setParameters(SqlStatement vstmt, HashMap<String, String> map)
     {
         String pName, pValue;
-        Iterator iter = map.keySet().iterator();
+        Iterator<String> iter = map.keySet().iterator();
         while (iter.hasNext())
         {
             pName = (String) iter.next();
@@ -282,7 +282,7 @@ public class CudHandler {
     void closeAllStatement()
     {
         SqlStatement vstmt;
-        Iterator iter = m_queryMap.values().iterator();
+        Iterator<SqlStatement> iter = m_queryMap.values().iterator();
         while (iter.hasNext())
         {
             vstmt = (SqlStatement) iter.next();
@@ -406,7 +406,7 @@ public class CudHandler {
     /**
      * 필드(컬럼)별 값을 설정한다.
      */
-    void setParameters(SqlStatement vstmt, ArrayList pList, String strPrefix)
+    void setParameters(SqlStatement vstmt, ArrayList<String[]> pList, String strPrefix)
     {
         String[] fieldSet;
         for (int n = 0, nlen = pList.size(); n < nlen; n++)
@@ -431,7 +431,7 @@ public class CudHandler {
         StringBuffer sb = new StringBuffer();
         for (int n = 0, nlen = m_keyList.size(); n < nlen; n++)
         {
-            sb.append(StringUtils.nvl((String) m_keyList.get(n), "")).append("\t");
+            sb.append(((String[]) m_keyList.get(n))[2]).append("\t");
         }
         for (int n = 0, nlen = m_fieldList.size(); n < nlen; n++)
         {

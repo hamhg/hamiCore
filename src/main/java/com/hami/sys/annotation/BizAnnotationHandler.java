@@ -27,17 +27,17 @@ import java.util.Map;
 public class BizAnnotationHandler implements ApplicationContextAware, InitializingBean {
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
     private ApplicationContext applicationContext;
-    private Map ServiceMethodMap;
+    private Map<String, ServiceMethod> ServiceMethodMap;
 
     public BizAnnotationHandler() {
-        ServiceMethodMap = new HashMap();
+        ServiceMethodMap = new HashMap<String, ServiceMethod>();
     }
 
-    public Map getServiceMethodMap() {
+    public Map<String, ServiceMethod> getServiceMethodMap() {
         return ServiceMethodMap;
     }
 
-    public void setServiceMethodMap(Map serviceMethodMap) {
+    public void setServiceMethodMap(Map<String, ServiceMethod> serviceMethodMap) {
         ServiceMethodMap = serviceMethodMap;
     }
 
@@ -51,14 +51,14 @@ public class BizAnnotationHandler implements ApplicationContextAware, Initializi
 
     public void loadAnnotaion() {
         log.debug(":::: BizService Load Start ::::");
-        Map ServiceClassMaps = applicationContext.getBeansWithAnnotation(Service.class);
+        Map<?, ?> ServiceClassMaps = applicationContext.getBeansWithAnnotation(Service.class);
 
-        for (Iterator iterator = ServiceClassMaps.keySet().iterator(); iterator.hasNext();) {
+        for (Iterator<?> iterator = ServiceClassMaps.keySet().iterator(); iterator.hasNext();) {
             String beanId = iterator.next().toString();
             Object beanObject = ServiceClassMaps.get(beanId);
 
             try {
-                Class cls = beanObject.getClass();
+                Class<?> cls = beanObject.getClass();
 
                 if (AopUtils.isAopProxy(beanObject) || AopUtils.isCglibProxy(beanObject))
                     cls = AopUtils.getTargetClass(beanObject);
@@ -98,7 +98,7 @@ public class BizAnnotationHandler implements ApplicationContextAware, Initializi
                         }
 
                         String parameterTypeNames[] = {"", ""};
-                        Class parameterTypes[] = method.getParameterTypes();
+                        Class<?> parameterTypes[] = method.getParameterTypes();
 
                         if (parameterTypes != null && parameterTypes.length > 0) {
                             parameterTypeNames = new String[parameterTypes.length];
@@ -119,7 +119,7 @@ public class BizAnnotationHandler implements ApplicationContextAware, Initializi
 
                     } else {
                         String ServiceClassName = cls.getName();
-                        String s = method.getName();
+                        String MethodName = method.getName();
                     }
                 }
 

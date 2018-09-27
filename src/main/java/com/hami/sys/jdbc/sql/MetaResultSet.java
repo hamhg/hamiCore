@@ -51,7 +51,7 @@ public class MetaResultSet
     /**
      * 컬럼명으로 컬럼인덱스 찾기 한 맵
      */
-    HashMap m_mapColNmIdx = null;
+    HashMap<String, String> m_mapColNmIdx = null;
     /**
      * 컬럼명을 담을 string array
      */
@@ -63,7 +63,7 @@ public class MetaResultSet
     /**
      * 레코드를 담을 list
      */
-    ArrayList m_listRec = null;
+    ArrayList<Object[]> m_listRec = null;
     /**
      * 컬럼값 꺼내올때 에러를 무시할지 결정한다.
      */
@@ -119,7 +119,7 @@ public class MetaResultSet
             ResultSetMetaData rsmd = rs.getMetaData();// 메타데이타
             int columnCount = rsmd.getColumnCount();// column count
             // mapping column name to column index
-            HashMap mapColNmIdx = new HashMap();
+            HashMap<String, String> mapColNmIdx = new HashMap<String, String>();
             String[] columnNames = new String[columnCount];
             int[] columnTypes = new int[columnCount];
             String columnName;
@@ -132,7 +132,7 @@ public class MetaResultSet
                 mapColNmIdx.put(columnName, String.valueOf(col));
             }
             // save data
-            ArrayList listRec = new ArrayList();
+            ArrayList<Object[]> listRec = new ArrayList<Object[]>();
             Object[] rowData;
             //int rowcnt = 0;
             while (rs.next())

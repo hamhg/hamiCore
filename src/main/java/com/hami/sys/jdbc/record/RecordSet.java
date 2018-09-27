@@ -19,7 +19,7 @@ public interface RecordSet extends Serializable, List {
 
     public abstract int getColumnCount();
 
-    public abstract Iterable getColumns();
+    public abstract Iterable<?> getColumns();
 
     public abstract Record getRecord(int i);
 

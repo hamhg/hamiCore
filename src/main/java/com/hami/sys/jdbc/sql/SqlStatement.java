@@ -46,11 +46,11 @@ public class SqlStatement {
     /**
      * 파라미터 변수 : 파라미터 값
      */
-    protected HashMap memParameterMap;
+    protected HashMap<String, Object> memParameterMap;
     /**
      * 순서대로 파라미터 변수를 저장한다.
      */
-    protected ArrayList memParameterList;
+    protected ArrayList<String> memParameterList;
     /**
      * default_pattern
      */
@@ -77,8 +77,8 @@ public class SqlStatement {
         if (query == null) throw new RuntimeException("SqlStatement: Query is null...");
         memConn = conn;
         memQuery = query;
-        memParameterList = new ArrayList();
-        memParameterMap = new HashMap();
+        memParameterList = new ArrayList<String>();
+        memParameterMap = new HashMap<String, Object>();
         pattern = sPattern == null ? default_pattern : Pattern.compile(sPattern);
         memStmtQuery = makePStmtQuery(memQuery);
         setRealStatement(memStmtQuery);

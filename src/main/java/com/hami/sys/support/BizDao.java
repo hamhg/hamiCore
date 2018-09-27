@@ -24,15 +24,15 @@ import java.util.*;
 public class BizDao extends DaoSupport {
     public final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    public int queryForInt(Object obj, String sqlName, Map bindParams) throws BizException {
-        Map commonBindParams = setCommonParams(bindParams);
+    public int queryForInt(Object obj, String sqlName, Map<String, ?> bindParams) throws BizException {
+        Map<String, ?> commonBindParams = setCommonParams(bindParams);
         String sql = getSql(obj, sqlName, commonBindParams);
         MapSqlParameterSource sqlParams = new MapSqlParameterSource();
         sqlParams.addValues(commonBindParams);
         return super.queryForInt(sql, sqlParams);
     }
 
-    public long queryForLong(Object obj, String sqlName, Map bindParams) throws BizException {
+    public long queryForLong(Object obj, String sqlName, Map<String, ?> bindParams) throws BizException {
         Map commonBindParams = setCommonParams(bindParams);
         String sql = getSql(obj, sqlName, commonBindParams);
         MapSqlParameterSource sqlParams = new MapSqlParameterSource();
@@ -40,15 +40,15 @@ public class BizDao extends DaoSupport {
         return super.queryForLong(sql, sqlParams);
     }
 
-    public Map queryForMap(Object obj, String sqlName, Map bindParams) throws BizException {
+    public Map queryForMap(Object obj, String sqlName, Map<String, ?> bindParams) throws BizException {
         Map commonBindParams = setCommonParams(bindParams);
         String sql = getSql(obj, sqlName, commonBindParams);
         MapSqlParameterSource sqlParams = new MapSqlParameterSource();
         sqlParams.addValues(commonBindParams);
-        return (Map) super.queryForObject(sql, sqlParams, new ColumnMapRowMapper());
+        return (Map<?, ?>) super.queryForObject(sql, sqlParams, new ColumnMapRowMapper());
     }
 
-    public List queryForList(Object obj, String sqlName, Map bindParams) throws BizException {
+    public List queryForList(Object obj, String sqlName, Map<String, ?> bindParams) throws BizException {
         Map commonBindParams = setCommonParams(bindParams);
         String sql = getSql(obj, sqlName, commonBindParams);
         MapSqlParameterSource sqlParams = new MapSqlParameterSource();
@@ -56,7 +56,7 @@ public class BizDao extends DaoSupport {
         return super.queryForList(sql, sqlParams, new ColumnMapRowMapper());
     }
 
-    public int update(Object obj, String sqlName, Map bindParams) throws BizException {
+    public int update(Object obj, String sqlName, Map<String, ?> bindParams) throws BizException {
         Map commonBindParams = setCommonParams(bindParams);
         String sql = getSql(obj, sqlName, commonBindParams);
         MapSqlParameterSource sqlParams = new MapSqlParameterSource();
@@ -64,21 +64,21 @@ public class BizDao extends DaoSupport {
         return super.update(sql, sqlParams);
     }
 
-    public int updateByRequest(Object obj, String sqlName, Map bindParams) throws BizException {
+    public int updateByRequest(Object obj, String sqlName, Map<String, ?> bindParams) throws BizException {
         String sql = getSql(obj, sqlName, bindParams);
         MapSqlParameterSource sqlParams = new MapSqlParameterSource();
         sqlParams.addValues(bindParams);
         return super.update(sql, sqlParams);
     }
 
-    public int[] batchUpdate(Object obj, String sqlName, List listBindParams) throws BizException {
+    public int[] batchUpdate(Object obj, String sqlName, List<?> listBindParams) throws BizException {
         String sql = getSql(obj, sqlName);
         SqlParameterSource sqlParams[] = new SqlParameterSource[listBindParams.size()];
         for (int i = 0; i < listBindParams.size(); i++)
             if (listBindParams.get(i) instanceof Map) {
-                Map bindParams = (Map) listBindParams.get(i);
+                Map<String, ?> bindParams = (Map<String, ?>) listBindParams.get(i);
                 MapSqlParameterSource mapParams = new MapSqlParameterSource();
-                Map commonBindParams = setCommonParams(bindParams);
+                Map<String, ?> commonBindParams = setCommonParams(bindParams);
                 mapParams.addValues(commonBindParams);
                 sqlParams[i] = mapParams;
             } else {
@@ -89,7 +89,7 @@ public class BizDao extends DaoSupport {
         return super.batchUpdate(sql, sqlParams);
     }
 
-    public int[] batchUpdateByRequest(Object obj, String sqlName, List listBindParams) throws BizException {
+    public int[] batchUpdateByRequest(Object obj, String sqlName, List<?> listBindParams) throws BizException {
         String sql = getSql(obj, sqlName);
         SqlParameterSource sqlParams[] = new SqlParameterSource[listBindParams.size()];
         for (int i = 0; i < listBindParams.size(); i++)
@@ -106,7 +106,7 @@ public class BizDao extends DaoSupport {
         return super.batchUpdate(sql, sqlParams);
     }
 
-    public int batchUpdate2ByRequest(Object obj, String sqlName, List listBindParams) throws BizException {
+    public int batchUpdate2ByRequest(Object obj, String sqlName, List<?> listBindParams) throws BizException {
         int arrCount[] = batchUpdateByRequest(obj, sqlName, listBindParams);
         int countSum = 0;
         for (int i = 0; i < arrCount.length; i++)
@@ -116,9 +116,9 @@ public class BizDao extends DaoSupport {
         return countSum;
     }
 
-    private Map setCommonParams(Map bindParams) {
+    private Map<String, ?> setCommonParams(Map bindParams) {
         //log.debug("[BizDAO.setCommonParams] Start");
-        Map commonBindParams = new HashMap();
+        Map<String, Object> commonBindParams = new HashMap<String, Object>();
         Locale currentLocale = new Locale("KOREAN", "KOREA");
         Calendar calendar = Calendar.getInstance(currentLocale);
         Date currDate = calendar.getTime();
