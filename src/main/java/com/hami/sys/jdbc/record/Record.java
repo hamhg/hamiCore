@@ -27,7 +27,7 @@ public abstract class Record implements Serializable, Map {
 
     public abstract int getColumnCount();
 
-    public abstract Iterable getColumns();
+    public abstract Iterable<?> getColumns();
 
     public abstract Record set(String s, Object obj);
 

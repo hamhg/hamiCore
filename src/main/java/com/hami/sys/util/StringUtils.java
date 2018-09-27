@@ -806,7 +806,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 문자열을 치환한다.
      */
-    public static String replace(String str, HashMap hashMap, String sPattern, boolean null2empty)
+    public static String replace(String str, HashMap<?, ?> hashMap, String sPattern, boolean null2empty)
     {
         //"@@((\\w|[ㄱ-힝])+)@@"
         sPattern = nvl(sPattern, "@@((\\w|[ㄱ-힝])+)@@");
@@ -851,7 +851,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 문자열을 치환한다.
      */
-    public static String replaceByPattern(String str, Pattern pattern, HashMap hashMap)
+    public static String replaceByPattern(String str, Pattern pattern, HashMap<?, ?> hashMap)
     {
         Object value;
         String param;
@@ -877,7 +877,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * Enumeration를 문자열로 반환한다.
      */
-    public static String joinEnum(Enumeration strEnum, String delim, String start, String end)
+    public static String joinEnum(Enumeration<?> strEnum, String delim, String start, String end)
     {
         StringBuffer sb = new StringBuffer();
         int n = 0;
@@ -897,10 +897,10 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * @param hashMap
      * @return
      */
-    public static Properties makeHashMapToProperties(HashMap hashMap)
+    public static Properties makeHashMapToProperties(HashMap<?, ?> hashMap)
     {
         Properties prop = new Properties();
-        Iterator key_iter = hashMap.keySet().iterator();
+        Iterator<?> key_iter = hashMap.keySet().iterator();
         String key, val;
         while (key_iter.hasNext())
         {

@@ -20,12 +20,12 @@ import java.util.StringTokenizer;
 public abstract class AbstractStatement {
     protected String sql;
     private String nativeSql;
-    private List params;
+    private List<String> params;
     protected long elapsedTime;
 
     protected AbstractStatement(String sql) {
         this.sql = sql;
-        params = new ArrayList();
+        params = new ArrayList<String>();
     }
 
     public long getElapsedTime() {

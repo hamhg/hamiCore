@@ -22,34 +22,35 @@ public class ContextUtil {
     private Logger log = LoggerFactory.getLogger(this.getClass());
     private static final String ETC_MSG = "ETC_MSG";
 
-    public static Map getSystemHeader() {
-        return (Map) RequestContextHolder.getRequestContext().getAttribute("systemHeader");
+    public static Map<?, ?> getSystemHeader() {
+        return (Map<?, ?>) RequestContextHolder.getRequestContext().getAttribute("systemHeader");
     }
 
     public static Object getSystemHeaderValue(String key) {
-        return ((Map) RequestContextHolder.getRequestContext().getAttribute("systemHeader")).get(key);
+        return ((Map<?, ?>) RequestContextHolder.getRequestContext().getAttribute("systemHeader")).get(key);
     }
 
-    public static Map getTransactionHeader() {
-        return (Map) RequestContextHolder.getRequestContext().getAttribute("transactionHeader");
+    public static Map<?, ?> getTransactionHeader() {
+        return (Map<?, ?>) RequestContextHolder.getRequestContext().getAttribute("transactionHeader");
     }
 
     public static Object getTransactionHeaderValue(String key) {
-        return ((Map) RequestContextHolder.getRequestContext().getAttribute("transactionHeader")).get(key);
+        return ((Map<?, ?>) RequestContextHolder.getRequestContext().getAttribute("transactionHeader")).get(key);
     }
 
-    public static Map getMessageHeader() {
-        return (Map) RequestContextHolder.getRequestContext().getAttribute("messageHeader");
+    public static Map<?, ?> getMessageHeader() {
+        return (Map<?, ?>) RequestContextHolder.getRequestContext().getAttribute("messageHeader");
     }
 
     public static Object getMessageHeaderValue(String key) {
-        return ((Map) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).get(key);
+        return ((Map<?, ?>) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).get(key);
     }
 
-    public static Map getReturnMessageCode() {
-        Map msg = (Map) RequestContextHolder.getRequestContext().getAttribute(ETC_MSG);
+    public static Map<String, String> getReturnMessageCode() {
+        @SuppressWarnings("unchecked")
+        Map<String, String> msg = (Map<String, String>) RequestContextHolder.getRequestContext().getAttribute(ETC_MSG);
         if (msg == null)
-            msg = new HashMap();
+            msg = new HashMap<String, String>();
         return msg;
     }
 
@@ -65,27 +66,30 @@ public class ContextUtil {
         RequestContextHolder.getRequestContext().setAttribute("messageHeader", value);
     }
 
+    @SuppressWarnings("unchecked")
     public static void setMessageHeaderByPrcsRsltCd(String value) {
-        ((Map) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).put("MSG_PRCS_RSLT_CD", value);
+        ((Map<String, String>) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).put("MSG_PRCS_RSLT_CD", value);
     }
 
+    @SuppressWarnings("unchecked")
     public static void setMessageHeaderByIndcCd(String value) {
-        if (((Map) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).get("MSG_DATA_SUB") == null) {
-            List subMsg = new ArrayList();
-            Map msg = new HashMap();
+        if (((Map<String, Object>) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).get("MSG_DATA_SUB") == null) {
+            List<Map<String, String>> subMsg = new ArrayList<Map<String, String>>();
+            Map<String, String> msg = new HashMap<String, String>();
             msg.put("MSG_CD", "");
             msg.put("MSG_CTNS", "");
             msg.put("MSG_INDC_CD", value);
             subMsg.add(msg);
-            ((Map) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).put("MSG_DATA_SUB", subMsg);
-            ((Map) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).put("MSG_DATA_SUB_RPTT_CNT", Integer.valueOf(1));
+            ((Map<String, Object>) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).put("MSG_DATA_SUB", subMsg);
+            ((Map<String, Integer>) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).put("MSG_DATA_SUB_RPTT_CNT", Integer.valueOf(1));
         } else {
-            ((Map) ((List) ((Map) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).get("MSG_DATA_SUB")).get(0)).put("MSG_INDC_CD", value);
+            ((Map<String, String>) ((List<?>) ((Map<?, ?>) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).get("MSG_DATA_SUB")).get(0)).put("MSG_INDC_CD", value);
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void setMessageHeaderValues(String msgPrcsRsltCd, String msgIndcCd) {
-        ((Map) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).put("MSG_PRCS_RSLT_CD", msgPrcsRsltCd);
+        ((Map<String, String>) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).put("MSG_PRCS_RSLT_CD", msgPrcsRsltCd);
         setMessageHeaderByIndcCd(msgIndcCd);
     }
 
@@ -94,7 +98,7 @@ public class ContextUtil {
     }
 
     public static void addReturnMessage(String msgCd, String args[]) {
-        Map msg = new HashMap();
+        Map<String, Object> msg = new HashMap<String, Object>();
         msg.put("MSG_CD", msgCd);
         msg.put("MSG_ARGS", args);
         RequestContextHolder.getRequestContext().setAttribute(ETC_MSG, msg);

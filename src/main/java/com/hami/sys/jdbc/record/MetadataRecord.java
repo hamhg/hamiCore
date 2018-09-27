@@ -167,7 +167,7 @@ public class MetadataRecord extends Record implements RecordMetadataDefined {
     private final class Entry implements java.util.Map.Entry {
 
         private String key;
-        final MetadataRecord this$0;
+        final MetadataRecord metaDataRecord;
 
         public Object getValue() {
             return getObject(key);
@@ -197,7 +197,7 @@ public class MetadataRecord extends Record implements RecordMetadataDefined {
 
         public Entry(String key) {
             super();
-            this$0 = MetadataRecord.this;
+            metaDataRecord = MetadataRecord.this;
             this.key = key;
         }
     }
