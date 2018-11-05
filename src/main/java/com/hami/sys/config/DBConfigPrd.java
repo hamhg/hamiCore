@@ -40,7 +40,7 @@ public class DBConfigPrd {
         dsLookup.setResourceRef(true);
         DataSource dataSource = dsLookup.getDataSource(env.getProperty("jndi"));
 
-        log.debug(":::: Prd Datasource ::::");
+        log.debug(":::: Prod Datasource ::::");
 
         return dataSource;
     }

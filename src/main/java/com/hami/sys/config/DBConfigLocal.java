@@ -24,10 +24,10 @@ import javax.sql.DataSource;
  * @author HHG
  */
 @Configuration
-@Profile("dev")
-@PropertySource("classpath:properties/dev/system.properties")
+@Profile("local")
+@PropertySource("classpath:properties/local/system.properties")
 @EnableTransactionManagement
-public class DBConfigDev {
+public class DBConfigLocal {
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -45,7 +45,7 @@ public class DBConfigDev {
         dataSource.setUsername(env.getProperty("db.username"));
         dataSource.setPassword(env.getProperty("db.password"));
 
-        log.debug(":::: Dev Datasource ::::");
+        log.debug(":::: Local Datasource ::::");
 
         return dataSource;
     }
