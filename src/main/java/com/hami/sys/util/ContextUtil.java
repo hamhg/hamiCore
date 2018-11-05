@@ -46,11 +46,11 @@ public class ContextUtil {
         return ((Map<?, ?>) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).get(key);
     }
 
-    public static Map<String, String> getReturnMessageCode() {
+    public static Map<String, Object> getReturnMessageCode() {
         @SuppressWarnings("unchecked")
-        Map<String, String> msg = (Map<String, String>) RequestContextHolder.getRequestContext().getAttribute(ETC_MSG);
+        Map<String, Object> msg = (Map<String, Object>) RequestContextHolder.getRequestContext().getAttribute(ETC_MSG);
         if (msg == null)
-            msg = new HashMap<String, String>();
+            msg = new HashMap<String, Object>();
         return msg;
     }
 
@@ -74,8 +74,8 @@ public class ContextUtil {
     @SuppressWarnings("unchecked")
     public static void setMessageHeaderByIndcCd(String value) {
         if (((Map<String, Object>) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).get("MSG_DATA_SUB") == null) {
-            List<Map<String, String>> subMsg = new ArrayList<Map<String, String>>();
-            Map<String, String> msg = new HashMap<String, String>();
+            List<Map<String, Object>> subMsg = new ArrayList<Map<String, Object>>();
+            Map<String, Object> msg = new HashMap<String, Object>();
             msg.put("MSG_CD", "");
             msg.put("MSG_CTNS", "");
             msg.put("MSG_INDC_CD", value);
@@ -83,7 +83,7 @@ public class ContextUtil {
             ((Map<String, Object>) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).put("MSG_DATA_SUB", subMsg);
             ((Map<String, Integer>) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).put("MSG_DATA_SUB_RPTT_CNT", Integer.valueOf(1));
         } else {
-            ((Map<String, String>) ((List<?>) ((Map<?, ?>) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).get("MSG_DATA_SUB")).get(0)).put("MSG_INDC_CD", value);
+            ((Map<String, Object>) ((List<?>) ((Map<?, ?>) RequestContextHolder.getRequestContext().getAttribute("messageHeader")).get("MSG_DATA_SUB")).get(0)).put("MSG_INDC_CD", value);
         }
     }
 
