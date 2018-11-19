@@ -7,6 +7,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * <pre>
  * <li>Program Name : StringUtils
@@ -973,4 +975,62 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
         System.out.println(xss(""));
         System.out.println(xss(""));
     }
+    
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public static <K, V> HashMap<K, V> newMap(Object... elems) {
+        HashMap m = new HashMap();
+    
+        for (int i = 0; i < elems.length; i += 2) {
+            m.put((K) elems[i], (V) elems[i + 1]); 
+        }
+    
+        return m;
+    }
+    
+    /**
+     * Parameter를 Json문자열로 반환한다.
+     */
+    public static String makeParamToJson(HttpServletRequest request, String param_names) throws UnsupportedEncodingException {
+        param_names = StringUtils.isEmpty(param_names)?"":param_names;
+        String[] param_name_array;
+        if (param_names.length() > 0)
+        {
+            param_name_array = param_names.split(",");
+        }
+        else
+        {
+            ArrayList<String> param_name_list = new ArrayList<String>();
+            Enumeration<?> param_name_enum = request.getParameterNames();
+            String param_name;
+            while (param_name_enum.hasMoreElements())
+            {
+                param_name = (String) param_name_enum.nextElement();
+                param_name_list.add(param_name);
+                //System.out.println(param_name_list.size());
+            }
+            param_name_array = new String[param_name_list.size()];
+            param_name_list.toArray(param_name_array);
+        }
+        String param_name;
+        String[] param_value_array;
+        StringBuffer sb = new StringBuffer();
+        for (int n = 0, nlen = param_name_array.length; n < nlen; n++)
+        {
+            param_name = param_name_array[n];
+            param_value_array = request.getParameterValues(param_name);
+            sb.append(param_name).append(": [");
+            if (param_value_array != null && param_value_array.length > 0)
+            {
+                for (int m = 0, mlen = param_value_array.length; m < mlen; m++)
+                {
+                    sb.append("\"").append(URLEncoder.encode(param_value_array[m],"UTF-8")).append("\"");
+                    if (m < mlen - 1) sb.append(",");
+                }
+            }
+            sb.append("]");
+            if (n < nlen - 1) sb.append(",");
+        }
+        return sb.toString();
+    }
+    
 }
