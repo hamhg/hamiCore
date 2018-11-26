@@ -25,7 +25,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @Profile("prd")
-@PropertySource("classpath:properties/prod/system.properties")
+@PropertySource("classpath:properties/prod/jdbc.properties")
 @EnableTransactionManagement
 public class DBConfigPrd {
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
