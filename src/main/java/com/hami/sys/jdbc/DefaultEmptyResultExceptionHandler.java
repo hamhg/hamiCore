@@ -18,7 +18,8 @@ public class DefaultEmptyResultExceptionHandler implements EmptyResultExceptionH
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
     public Object handle(String sql, EmptyResultDataAccessException e) {
-        log.warn((new StringBuilder()).append("Empty ResultData at queryForObject[").append(sql).append("]").toString());
+        //log.warn((new StringBuilder()).append("Empty ResultData at query [").append(sql).append("]").toString());
+        log.warn("[Empty ResultData] :: Return null");
         return null;
     }
 }
