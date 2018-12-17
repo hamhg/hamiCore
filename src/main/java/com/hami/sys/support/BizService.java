@@ -24,7 +24,7 @@ public class BizService {
     public Map<String, Object> getSchParam(Map<String, Object> paramMap) {
         
         Map<String, Object> searchMap = new HashMap<String, Object>();
-        if(!searchMap.isEmpty() && searchMap.containsKey("ds_search")){
+        if(!paramMap.isEmpty() && paramMap.containsKey("ds_search")){
             searchMap = (Map<String, Object>)paramMap.get("ds_search");
         } else {
             searchMap = paramMap;
