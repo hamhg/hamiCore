@@ -76,7 +76,7 @@ public class CudHandler {
         m_keyList = new ArrayList<String[]>();
         m_etcMap = new HashMap<String, String>();
         m_queryMap = new HashMap<String, SqlStatement>();
-        m_debug = true;
+        m_debug = false;
         m_autoFieldAdd = true;
     }
 
