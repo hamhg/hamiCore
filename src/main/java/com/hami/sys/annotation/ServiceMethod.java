@@ -13,10 +13,35 @@ import java.lang.reflect.Method;
  *
  * @author HHG
  */
-public @Data class ServiceMethod {
+@Data
+public class ServiceMethod {
     private ServiceDescriptor descriptor;
     private Object beanObject;
     private Method method;
+
+    public ServiceDescriptor getDescriptor() {
+        return descriptor;
+    }
+
+    public void setDescriptor(ServiceDescriptor descriptor) {
+        this.descriptor = descriptor;
+    }
+
+    public Object getBeanObject() {
+        return beanObject;
+    }
+
+    public void setBeanObject(Object beanObject) {
+        this.beanObject = beanObject;
+    }
+
+    public Method getMethod() {
+        return method;
+    }
+
+    public void setMethod(Method method) {
+        this.method = method;
+    }
 
     public ServiceMethod(ServiceDescriptor descriptor, Object beanObject, Method method) {
         this.beanObject = beanObject;

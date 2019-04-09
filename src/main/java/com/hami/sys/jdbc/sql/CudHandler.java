@@ -439,41 +439,4 @@ public class CudHandler {
         }
         log.debug(sb.toString());
     }
-
-    public static void main(String[] args)
-    {
-        /*
-         smngr.setTable("emp");
-         smngr.addField("emp", "emp");
-         smngr.addField("emp2", "emp");
-         smngr.addFieldRaw("emp3", "sysdate");
-         smngr.addKey("empid", "empid");
-         smngr.addKey("empid2", "empid");
-         smngr.addKeyRaw("empid3", "sysdate");
-         smngr.addWhere("A is null");
-         System.out.println(smngr.makeInsertQuery());
-         System.out.println(smngr.makeDeleteQuery());
-         System.out.println(smngr.makeUpdateQuery());
-         */
-        /*
-         Connection conn = null;
-         try
-         {
-         conn = SQLUtil.getConnection(null);
-         SQLUtil.setAutoCommit(conn, false);
-
-
-         SQLUtil.commit(conn);
-         }
-         catch(Exception e)
-         {
-         SQLUtil.rollback(conn);
-         System.out.println(e.toString());
-         }
-         finally
-         {
-         SQLUtil.releaseConnection(conn);
-         }
-         */
-    }
 }

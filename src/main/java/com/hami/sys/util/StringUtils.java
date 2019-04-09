@@ -953,29 +953,6 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
         return xss(nvl(srcStr));
     }
 
-    public static void main(String[] args) throws NoSuchAlgorithmException
-    {
-        //System.out.println(quoto("1\"2\'3\n4\\"));
-        /*
-        HashMap hashMap = new HashMap();
-        hashMap.put("abc", "one two three");
-        System.out.println(replace("111@@abc@@222@@abcd@@", hashMap, null, false));
-        */
-        //System.out.println(MD5("a=b&b=c"));
-        /*
-                String str1 = "abc123가나다";
-                for (int n = 0, nlen = str1.length(); n < nlen; n++)
-                {
-                    System.out.println((int) str1.charAt(n));
-                }
-        */
-        System.out.println(xss("abc<>\ndeff\rxx'''d\"f"));
-        System.out.println(xss(""));
-        System.out.println(xss(""));
-        System.out.println(xss(""));
-        System.out.println(xss(""));
-    }
-    
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public static <K, V> HashMap<K, V> newMap(Object... elems) {
         HashMap m = new HashMap();

@@ -14,7 +14,7 @@ import lombok.Data;
  * @author HHG
  */
 @Service("jdbc.control")
-public @Data class JdbcControlServiceImpl implements JdbcControlService {
+public @Data abstract class JdbcControlServiceImpl implements JdbcControlService {
 
     private int fetchSize;
     private int maxRows;
